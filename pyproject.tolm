@@ -1,0 +1,11 @@
+[project]
+name = "azani-wifi"
+version = "1.0.0"
+dependencies = [
+    "flet",
+]
+
+[tool.flet]
+app_name = "Azani Wifi"
+app_version = "1.0.0"
+main = "main.py"
