@@ -16,8 +16,8 @@ jobs:
           python-version: '3.11'
       - run: pip install flet[all]
       - run: yes | flet build apk --verbose
-      - run: find. -name "*.apk"
       - uses: actions/upload-artifact@v4
         with:
           name: azani-wifi-apk
           path: "**/*.apk"
+          if-no-files-found: error
