@@ -3,17 +3,17 @@ from jnius import autoclass
 import time
 
 def main(page: ft.Page):
-    page.title = "Azani WiFi Scanner v1.3"
+    page.title = "Azani WiFi Scanner v1.4"
     page.bgcolor = "#0F172A"
     page.padding = 20
     page.scroll = "auto"
 
-    title = ft.Text("Azani WiFi Scanner v1.3", size=24, weight="bold", color="white")
+    title = ft.Text("Azani WiFi Scanner v1.4", size=24, weight="bold", color="white")
     status = ft.Text("Bofya Scan kutafuta WiFi", color="#94A3B8")
     wifi_list = ft.Column(spacing=10)
 
     def scan_wifi(e):
-        status.value = "Inascan... ngoja sekunde 3"
+        status.value = "Inascan... ruhusu Location kwanza"
         wifi_list.controls.clear()
         page.update()
 
@@ -24,11 +24,11 @@ def main(page: ft.Page):
             wifi_service = activity.getSystemService(Context.WIFI_SERVICE)
             
             wifi_service.startScan()
-            time.sleep(2)
+            time.sleep(3)  # Ongezeka sekunde 1
             results = wifi_service.getScanResults()
             
             if results.size() == 0:
-                wifi_list.controls.append(ft.Text("Hakuna WiFi zozote", color="red"))
+                wifi_list.controls.append(ft.Text("Hakuna WiFi. Washa WiFi na Location", color="red"))
             else:
                 for i in range(results.size()):
                     result = results.get(i)
@@ -43,12 +43,12 @@ def main(page: ft.Page):
                                 ]),
                                 padding=10
                             ),
-                            bgcolor="#1E293B"  # <-- HAPA NDO TUMEBADILISHA color -> bgcolor
+                            bgcolor="#1E293B"
                         )
                     )
-            status.value = f"Imemaliza: {results.size()} networks"
+            status.value = f"Imemaliza: {results.size()} networks zimepatikana"
         except Exception as err:
-            status.value = "Error: Ruhusu Location Permission kwenye Settings"
+            status.value = "ERROR: Nenda Settings > Apps > Azani WiFi > Ruhusu Location"
             wifi_list.controls.append(ft.Text(str(err), color="red", size=10))
         
         page.update()
